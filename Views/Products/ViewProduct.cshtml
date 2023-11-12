@@ -1,0 +1,26 @@
+@model demo_crud.Models.Product
+
+@{
+    ViewBag.Title = "View Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title: @ViewBag.Id</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            @if(Model != null) {
+            <p><b>Product ID</b>: @Model.Id</p>
+            <p><b>Product Name</b>: @Model.Name</p>
+            <p><b>Product Price</b>: @Model.Price</p>
+            }
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+
+@if (ViewBag.Message != null) {
+    <div>@ViewBag.Message.Text</div>
+} 

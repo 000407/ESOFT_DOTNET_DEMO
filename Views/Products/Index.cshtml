@@ -1,14 +1,14 @@
 @model IEnumerable<demo_crud.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "All Products";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @* @Html.ActionLink("Create New", "Create") *@
+    <a href="@Url.Link("new_product_view", new {})">New Product</a>
 </p>
 <table class="table">
     <tr>
@@ -30,11 +30,34 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @* @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id  }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id }) *@
+            <a href="@Url.Link("product_edit_form", new { id = item.Id })">Edit</a> |
+            <a href="@Url.Link("product_view", new { id = item.Id })">Details</a> |
+            <a href="@Url.Link("product_edit_form", new { id = item.Id })" class="lnk-delete" data-id="@item.Id">Delete</a>
         </td>
     </tr>
 }
 
 </table>
+
+<script>
+    $(document).on("click", "a.lnk-delete", function(e) {
+        e.preventDefault();
+        var confirmed = confirm("Are you sure?");
+        
+        if (confirmed) {
+            var id = $(this).data('id');
+            $.ajax({ // AJAX stands for Asynchronous JavaScript and XML
+                method: "DELETE",
+                url: `products/${id}/delete`,
+                success: function() {
+                    alert('DONE!');
+                    window.location.reload();
+                },
+                error: function(err) {
+                    alert('OOPS!');
+                    console.log(err);
+                }
+            });
+        }
+    });
+</script>
