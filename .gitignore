@@ -1,5 +1,5 @@
 /bin
 /obj
 /appsettings*
-*.csproj
 *.sln
+.fake
